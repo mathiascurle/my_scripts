@@ -1,5 +1,5 @@
 term_config() {
-  TERMINALS="alacritty|wezterm"
+  TERMINALS="alacritty|wezterm|kitty"
 
   if [ -n "$TMUX" ]; then
     # Within tmux, start from the tmux client's PID
@@ -9,7 +9,7 @@ term_config() {
     CURRENT_PID=$PPID
   fi
 
-  # 3. Climb the tree until we find a terminal or hit PID 1
+  # Climb the tree until we find a terminal or hit PID 1
   DETECTED_TERM="unknown"
   while [ "$CURRENT_PID" -gt 1 ]; do
     # Get the process name
@@ -27,10 +27,11 @@ term_config() {
 
   # echo "Terminal Emulator: $DETECTED_TERM"
 
-  # 4. Use the result in your logic
+  # Use the result in your logic
   case "$DETECTED_TERM" in
     *wezterm*)        nvim ~/.config/wezterm/wezterm.lua ;;
     *alacritty*)      nvim ~/.config/alacritty/alacritty.toml ;;
+    *kitty*)      nvim ~/.config/kitty/kitty.conf ;;
     *)                echo "Terminal not in list: $DETECTED_TERM" ;;
   esac
 }
