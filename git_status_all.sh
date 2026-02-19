@@ -1,5 +1,5 @@
 git_status_all() {
-  local untracked_repos=() # Array to store repos with untracked files
+  local changed_repos=() # Array to store repos with any changes
 
   # Define colors
   RED="\033[1;91m"
@@ -21,9 +21,9 @@ git_status_all() {
     cd "$repo" 
     git_status_output=$(git status --porcelain)
 
-    # Check if there are untracked files
-    if echo "$git_status_output" | grep -q "??"; then
-      untracked_repos+=("$repo") # Store repo if it has untracked files
+    # Check if there are any changes (untracked, modified, added, deleted, renamed)
+    if [ -n "$git_status_output" ]; then
+      changed_repos+=("$repo") # Store repo if it has any changes
     fi
 
     # Print git status output in color
@@ -45,13 +45,13 @@ git_status_all() {
     echo "${GRAY}----------------------------------------${RESET}"
   done
 
-  # Print summary of repos with untracked files
-  if [ ${#untracked_repos[@]} -gt 0 ]; then
-    echo "${GREEN}Repos with untracked files:${RESET}"
-    for repo in "${untracked_repos[@]}"; do
+  # Print summary of repos with any changes
+  if [ ${#changed_repos[@]} -gt 0 ]; then
+    echo "${GREEN}Repos with changes:${RESET}"
+    for repo in "${changed_repos[@]}"; do
       echo "${GREEN}- $repo${RESET}"
     done
   else
-    echo "${GREEN}No repos with untracked files.${RESET}"
+    echo "${GREEN}No repos with changes.${RESET}"
   fi
 }
