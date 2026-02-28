@@ -10,6 +10,7 @@ conf() {
         zsh "$HOME/.zshrc"
         omz "$HOME/.oh-my-zsh/custom"
         qute "$HOME/.config/qutebrowser/config.py"
+        rmpc "$HOME/.config/rmpc/config.ron"
         none "$HOME/.config" # base case
     )
 
