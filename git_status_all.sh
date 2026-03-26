@@ -1,3 +1,5 @@
+#!/bin/bash
+
 git_status_all() {
   local changed_repos=() # Array to store repos with any changes
 

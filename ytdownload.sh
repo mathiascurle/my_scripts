@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ytdownload() {
   if [ -z "$1" ]; then

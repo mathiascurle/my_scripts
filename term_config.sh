@@ -1,3 +1,5 @@
+#!/bin/bash
+
 term_config() {
   TERMINALS="alacritty|wezterm|kitty"
 
